@@ -1,0 +1,7 @@
+{
+  "name": "cinoi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
