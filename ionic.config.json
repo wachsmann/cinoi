@@ -1,7 +1,13 @@
 {
-  "name": "cinoi",
+  "name": "CINOI",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
+  },
+  "plugins": {
+    "Keyboard": {
+      "resize": "none"
+    }
   },
   "type": "angular"
 }
