@@ -1,0 +1,35 @@
+ion-content{
+    --ion-background-color:#0e76ad;
+    text-align: center;
+}
+
+ion-text{
+    font-family: "Segoe UI"; 
+}
+
+.average-text {
+    font-size: 20px;
+}
+
+.box-time {
+    margin-top: 30%;
+}
+
+.box-distance {
+    margin-top: 20%;
+}
+
+.box-detail {
+    margin-top: 20%;
+}
+
+.box-pace {
+    margin-top: 10%;
+    background-color: white;
+    color: #0e76ad;
+    margin: 25px;
+    padding: 10px;
+    border-radius: 25px;
+    font-weight: 700;
+}
+

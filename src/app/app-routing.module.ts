@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'running',
+    loadChildren: () => import('./running/running.module').then( m => m.RunningPageModule)
   },
+
 ];
 
 @NgModule({
