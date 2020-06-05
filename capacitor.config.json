@@ -7,6 +7,14 @@
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
+    },
+    "CapacitorFirebaseAuth": {
+      "providers": [],
+      "languageCode": "pt-br",
+      "nativeAuth": false,
+      "permissions": {
+        
+       }
     }
   },
   "cordova": {}
