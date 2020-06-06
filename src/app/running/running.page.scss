@@ -3,6 +3,11 @@ ion-content{
     text-align: center;
 }
 
+ion-slides {
+    --bullet-background: white;
+    --bullet-background-active: white;
+}
+
 ion-text{
     font-family: "Segoe UI"; 
 }
