@@ -1,0 +1,27 @@
+.training {
+    border: solid 1px #e4e3e3;
+    border-radius: 5px;
+    background-color: white;
+    min-height: 40px;
+    display: flex;
+    >.icon {
+        padding-top: 5px;
+        width: 10%;
+    }
+    >.title {
+        padding-top: 10px;
+        margin-left: 10px;
+        width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    >.actions {
+        width: 10%;
+        ion-icon {
+            padding-top: 7px;
+            width: 25px;
+            height: 25px;
+        }
+    }
+}
