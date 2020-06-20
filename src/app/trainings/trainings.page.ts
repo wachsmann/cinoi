@@ -1,9 +1,11 @@
+import { TrainingViewComponent } from './training-view/training-view.component';
 import { TrainingListComponent } from './training-list/training-list.component';
-import { TrainingsService } from './trainings.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { ModalController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+
+import Training from './training.model';
 
 @Component({
   selector: 'app-trainings',
@@ -14,7 +16,10 @@ export class TrainingsPage implements OnInit {
   public usuario: string;
   public loadingObject: Promise<HTMLIonLoadingElement>;
   @ViewChild('trainingList') trainingList: TrainingListComponent;
-  constructor(private route: ActivatedRoute, private trainingsService: TrainingsService, public loadingController: LoadingController) {
+  constructor(
+    private route: ActivatedRoute,
+    public loadingController: LoadingController,
+    private modalController: ModalController) {
     this.usuario = this.route.snapshot.paramMap.get('usuario');
   }
   ngOnInit() {
@@ -22,15 +27,26 @@ export class TrainingsPage implements OnInit {
   ionViewWillEnter(){
     this.trainingList.update();
   }
-  addNewTraining() {
-    this.trainingsService.add({
-      distance: 0,
-      end: '',
-      start: '',
-      id: -1,
-      name: 'Teste de treino'
+  async addNewTraining() {
+    const modal = await this.modalController.create({
+      component: TrainingViewComponent,
+      componentProps: {
+        mode: 'new'
+      }
     });
-    this.trainingList.update();
+    await modal.present();
+    const {data} = await modal.onWillDismiss();
+    console.log(data);
+  }
+  async editTraining(training: Training) {
+    const modal = await this.modalController.create({
+      component: TrainingViewComponent,
+      componentProps: {
+        mode: 'edit',
+        training
+       }
+    });
+    await modal.present();
   }
   initLoadAnimation() {
     this.loadingObject = this.loadingController.create({

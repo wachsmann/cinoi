@@ -9,22 +9,19 @@ export class TrainingsService {
   private trainings: Array<Training> = [
     {
       distance: 0,
-      end: '',
-      start: '',
       id: 1,
-      name: 'Teste de treino'
+      name: 'Teste de treino',
+      velocity: 5
     }, {
       distance: 0,
-      end: '',
-      start: '',
       id: 2,
-      name: 'Teste de treino'
+      name: 'Teste de treino',
+      velocity: 5
     }, {
       distance: 0,
-      end: '',
-      start: '',
       id: 3,
-      name: 'Teste de treino'
+      name: 'Teste de treino',
+      velocity: 5
     }
   ];
   constructor() { }

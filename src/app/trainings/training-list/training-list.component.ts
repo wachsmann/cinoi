@@ -9,8 +9,9 @@ import Training from '../training.model';
 })
 export class TrainingListComponent implements OnInit {
   trainings: Array<Training> = [];
-  @Output() OnInitUpdate: EventEmitter<any> = new EventEmitter();
-  @Output() OnFinishUpdate: EventEmitter<any> = new EventEmitter();
+  @Output() OnInitUpdate: EventEmitter<void> = new EventEmitter();
+  @Output() OnFinishUpdate: EventEmitter<void> = new EventEmitter();
+  @Output() OnTrainingClick: EventEmitter<Training> = new EventEmitter();
   constructor(private trainingsService: TrainingsService) { }
 
   ngOnInit() {}

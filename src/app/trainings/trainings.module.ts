@@ -1,7 +1,8 @@
+import { TrainingViewComponent } from './training-view/training-view.component';
 import { TrainingListComponent } from './training-list/training-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,8 +16,14 @@ import { TrainingComponent } from './training-list/training/training.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    TrainingsPageRoutingModule
+    TrainingsPageRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  declarations: [TrainingsPage, TrainingListComponent, TrainingComponent]
+  declarations: [
+    TrainingsPage,
+    TrainingListComponent,
+    TrainingComponent,
+    TrainingViewComponent]
 })
 export class TrainingsPageModule {}
