@@ -1,4 +1,4 @@
-import { TrainingEditComponent } from './training-view/training-edit.component';
+import { TrainingEditComponent } from './training-edit/training-edit.component';
 import { TrainingListComponent } from './training-list/training-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
