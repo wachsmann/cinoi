@@ -1,15 +1,15 @@
-import { TrainingsService } from './../trainings.service';
+import { TrainingsService } from '../trainings.service';
 import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Training from '../training.model';
 
 @Component({
-  selector: 'app-training-view',
-  templateUrl: './training-view.component.html',
-  styleUrls: ['./training-view.component.scss']
+  selector: 'app-training-edit',
+  templateUrl: './training-edit.component.html',
+  styleUrls: ['./training-edit.component.scss']
 })
-export class TrainingViewComponent implements OnInit {
+export class TrainingEditComponent implements OnInit {
   @Input() mode: string;
   @Input() training: Training | null;
   editing: Training;

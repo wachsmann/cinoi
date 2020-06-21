@@ -1,4 +1,4 @@
-import { TrainingViewComponent } from './training-view/training-view.component';
+import { TrainingEditComponent } from './training-view/training-edit.component';
 import { TrainingListComponent } from './training-list/training-list.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -29,7 +29,7 @@ export class TrainingsPage implements OnInit {
   }
   async addNewTraining() {
     const modal = await this.modalController.create({
-      component: TrainingViewComponent,
+      component: TrainingEditComponent,
       componentProps: {
         mode: 'new'
       }
@@ -40,7 +40,7 @@ export class TrainingsPage implements OnInit {
   }
   async editTraining(training: Training) {
     const modal = await this.modalController.create({
-      component: TrainingViewComponent,
+      component: TrainingEditComponent,
       componentProps: {
         mode: 'edit',
         training
