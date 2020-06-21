@@ -82,6 +82,11 @@ div.basic-form {
     >.title {
         @include title;
     }
+    >form {
+        >.title {
+            @include title;
+        }
+    }
     >.icon-title {
         display: flex;
         width: 100%;

@@ -1,0 +1,40 @@
+<!-- <div class="losango"></div> -->
+<ion-content fullscreen="true" scroll="false">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-text class="title">{{this.training.name}}</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-text>Distância<br />{{this.training.distance}} Km</ion-text>
+            </ion-col>
+            <ion-col>
+                <ion-text>Velocidade<br />{{this.training.velocity}} Km/h</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button (click)="startTraining()" strong size="large" expand="full">
+                    <ion-icon name="play-sharp"></ion-icon>
+                    &nbsp;Iniciar Treino
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button (click)="editTraining()" size="default">
+                    <ion-icon slot="start" name="create-sharp"></ion-icon>
+                    Editar
+                </ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button (click)="deleteTraining()" size="default">
+                    <ion-icon slot="start" name="trash-bin-sharp"></ion-icon>
+                    Excluir
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

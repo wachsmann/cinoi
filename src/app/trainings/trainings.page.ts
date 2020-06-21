@@ -1,3 +1,4 @@
+import { TrainingViewComponent } from './training-view/training-view.component';
 import { TrainingEditComponent } from './training-edit/training-edit.component';
 import { TrainingListComponent } from './training-list/training-list.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -35,18 +36,17 @@ export class TrainingsPage implements OnInit {
       }
     });
     await modal.present();
-    const {data} = await modal.onWillDismiss();
-    console.log(data);
+    await modal.onWillDismiss();
   }
   async editTraining(training: Training) {
     const modal = await this.modalController.create({
-      component: TrainingEditComponent,
+      component: TrainingViewComponent,
       componentProps: {
-        mode: 'edit',
         training
        }
     });
     await modal.present();
+    await modal.onWillDismiss();
   }
   initLoadAnimation() {
     this.loadingObject = this.loadingController.create({

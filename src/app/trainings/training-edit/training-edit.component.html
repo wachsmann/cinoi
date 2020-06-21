@@ -2,9 +2,9 @@
 <ion-content fullscreen="true" scroll="false">
 
     <div class="primary-title">{{this.mode === 'new' ? 'CADASTRANDO TREINO' : 'EDITANDO TREINO'}}</div>
-    <form [formGroup]="formControl">
-        <div class="basic-form">
 
+    <div class="basic-form">
+        <form [formGroup]="formControl">
             <div class="title">
                 <b>INFORMAÇÕES DO TREINO</b>
             </div>
@@ -25,6 +25,7 @@
 
             <ion-button *ngIf="this.mode === 'new'" (click)="create()" type="submit" expand="block">CADASTRAR</ion-button>
             <ion-button *ngIf="this.mode === 'edit'" (click)="edit()" type="submit" expand="block">SALVAR</ion-button>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </ion-content>

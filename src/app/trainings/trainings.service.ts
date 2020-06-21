@@ -6,24 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TrainingsService {
-  private trainings: Array<Training> = [
-    {
-      distance: 0,
-      id: 1,
-      name: 'Teste de treino',
-      velocity: 5
-    }, {
-      distance: 0,
-      id: 2,
-      name: 'Teste de treino',
-      velocity: 5
-    }, {
-      distance: 0,
-      id: 3,
-      name: 'Teste de treino',
-      velocity: 5
-    }
-  ];
+  private trainings: Array<Training> = [];
   constructor() { }
 
   get(): Array<Training> {
