@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
+  logout() {
+    this.authService.logout();
+  }
 }
