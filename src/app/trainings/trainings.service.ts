@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import Training from './training.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrainingsService {
-  private trainings: Array<Training> = [];
+  private trainings: Array<Training> = [
+    {
+      distance: 10,
+      id: 1,
+      name: 'Teste de Treino',
+      velocity: 5
+    }
+  ];
   constructor() { }
 
   get(): Array<Training> {
