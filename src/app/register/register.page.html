@@ -1,0 +1,27 @@
+<div class="losango"></div>
+<ion-content fullscreen="true" scroll="false">
+
+  <div class="primary-title">BEM-VINDO</div>
+  <div class="basic-form">
+    <div class="title">CADASTRE-SE</div>
+
+    <ion-label position="stacked">Nome</ion-label><br />
+    <ion-input [(ngModel)]="user.name" inputmode="text" type="text" placeholder="Digite seu Nome">
+    </ion-input>
+
+    <ion-label position="stacked">E-mail</ion-label><br />
+    <ion-input [(ngModel)]="user.email" pattern="email" inputmode="email" type="email" placeholder="Digite seu E-mail">
+    </ion-input>
+
+    <ion-label position="stacked">Senha</ion-label><br />
+    <ion-input [(ngModel)]="user.password" inputmode="text" type="password" placeholder="Digite sua Senha"></ion-input>
+
+    <ion-label position="stacked">Peso</ion-label><br />
+    <ion-input [(ngModel)]="user.weight" inputmode="decimal" type="number" placeholder="Digite seu Peso"></ion-input>
+
+    <ion-label position="stacked">Altura</ion-label><br />
+    <ion-input [(ngModel)]="user.height" inputmode="decimal" type="number" placeholder="Digite sua Altura"></ion-input>
+
+    <ion-button (click)="register()" expand="block">CADASTRAR</ion-button>
+  </div>
+</ion-content>
