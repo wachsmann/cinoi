@@ -33,6 +33,7 @@
         "cordova-plugin-ionic-keyboard": "^2.2.0",
         "firebase": "^7.13.2",
         "ionic-plugin-keyboard": "^2.2.1",
+        "jetifier": "^1.6.6",
         "rxjs": "~6.5.1",
         "tslib": "^1.10.0",
         "zone.js": "~0.10.2"

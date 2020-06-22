@@ -4,6 +4,7 @@
     <div class="primary-title">BEM-VINDO</div>
     <div class="basic-form">
         <div class="title">HOME</div>
+        <ion-button [routerLink]="['/trainings', {usuario: 'Hugo Tomazi Busnardo'}]" routerDirection="forward" expand="block">TREINOS</ion-button>
         <ion-button (click)="logout()" expand="block">SAIR</ion-button>
     </div>
 </ion-content>
