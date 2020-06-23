@@ -1,13 +1,13 @@
 <div class="losango"></div>
 <ion-content fullscreen="true" scroll="false">
-    <ion-slides #sliderRef pager="true">
+    <ion-slides pager>
         <ion-slide>
             <ion-grid>
                 <ion-row>
                     <ion-col>
                         <div class="box-time">
                             <ion-text color="light" style="font-size: 50px;">
-                                <strong>{{ this.contador.getTime() | date:'HH:mm:ss' }}</strong>
+                                <strong>{{ this.time }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -20,7 +20,7 @@
                     <ion-col>
                         <div class="box-distance">
                             <ion-text color="light" style="font-size: 110px;">
-                                <strong>{{ (this.distance*1000).toFixed(2) }}</strong>
+                                <strong>{{ this.distance }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -71,7 +71,7 @@
                 <ion-row class="box-pace">
                     <ion-col>
                         <ion-text style="font-size: 35px;">
-                            <strong>{{ this.contador.getTime() | date:'HH:mm:ss' }}</strong>
+                            <strong>{{ this.time }}</strong>
                         </ion-text>
                         <br>
                         <ion-text class="average-text">
@@ -79,7 +79,7 @@
                         </ion-text>
                         <br>
                         <ion-text style="font-size: 100px;">
-                            <strong>{{ (this.distance*1000).toFixed(2) }}</strong>
+                            <strong>{{ this.distance }}</strong>
                         </ion-text>
                         <br>
                         <ion-text class="average-text">

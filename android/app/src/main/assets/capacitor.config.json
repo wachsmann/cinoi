@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "appId": "io.ionic.starter",
   "appName": "cinoi",
   "bundledWebRuntime": false,
@@ -19,3 +20,17 @@
   },
   "cordova": {}
 }
+=======
+    "appId": "io.ionic.starter",
+    "appName": "cinoi",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "www",
+    "plugins": {
+        "SplashScreen": {
+            "launchShowDuration": 0
+        }
+    },
+    "cordova": {}
+}
+>>>>>>> feat/maps-training
