@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RunningPageRoutingModule } from './running-routing.module';
 
 import { RunningPage } from './running.page';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { RunningPage } from './running.page';
     IonicModule,
     RunningPageRoutingModule
   ],
-  declarations: [RunningPage]
+  declarations: [RunningPage],
+  providers:[
+    Geolocation
+  ]
 })
 export class RunningPageModule {}
