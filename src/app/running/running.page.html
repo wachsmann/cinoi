@@ -1,6 +1,6 @@
 <div class="losango"></div>
 <ion-content fullscreen="true" scroll="false">
-    <ion-slides pager>
+    <ion-slides #sliderRef pager="true">
         <ion-slide>
             <ion-grid>
                 <ion-row>
@@ -78,7 +78,7 @@
                             Duração
                         </ion-text>
                         <br>
-                        <ion-text style="font-size: 100px;">
+                        <ion-text style="font-size: 50px;">
                             <strong>{{ this.distance }}</strong>
                         </ion-text>
                         <br>
@@ -87,9 +87,9 @@
                         </ion-text>
                     </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row class="box-map">
                     <ion-col>
-                        <div id="map_canvas">
+                        <div #mapa class="map_canvas">
 
                         </div>
                     </ion-col>

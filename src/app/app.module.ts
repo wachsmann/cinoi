@@ -13,6 +13,7 @@ import { ReactiveFormsModule  } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
+// import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
   providers: [
     StatusBar,
     SplashScreen,
+    // GoogleMaps,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: SETTINGS, useValue: {} }
   ],

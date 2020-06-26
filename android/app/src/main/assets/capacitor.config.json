@@ -1,26 +1,4 @@
 {
-<<<<<<< HEAD
-  "appId": "io.ionic.starter",
-  "appName": "cinoi",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    },
-    "CapacitorFirebaseAuth": {
-      "providers": [],
-      "languageCode": "pt-br",
-      "nativeAuth": false,
-      "permissions": {
-        
-       }
-    }
-  },
-  "cordova": {}
-}
-=======
     "appId": "io.ionic.starter",
     "appName": "cinoi",
     "bundledWebRuntime": false,
@@ -29,8 +7,15 @@
     "plugins": {
         "SplashScreen": {
             "launchShowDuration": 0
+        },
+        "CapacitorFirebaseAuth": {
+            "providers": [],
+            "languageCode": "pt-br",
+            "nativeAuth": false,
+            "permissions": {
+
+            }
         }
     },
     "cordova": {}
 }
->>>>>>> feat/maps-training

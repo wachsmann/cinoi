@@ -1,126 +1,69 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Platform } from '@ionic/angular';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  Marker,
-  LatLng,
-  Environment,
-  Polyline
-} from '@ionic-native/google-maps/ngx';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { IonSlides } from '@ionic/angular';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { IonSlides, Platform } from '@ionic/angular';
+import { google } from 'google-maps';
 @Component({
-  selector: 'app-running',
-  templateUrl: './running.page.html',
-  styleUrls: ['./running.page.scss'],
+    selector: 'app-running',
+    templateUrl: './running.page.html',
+    styleUrls: ['./running.page.scss'],
 })
 export class RunningPage implements OnInit {
-  private distance: string = "5,80";
-  private time: string = "00:30:12";
-  private calories: number = 670;
-  private average_speed: string = "5,80";
-  private target_speed: number = 10;
-  marker: Marker;
-  map: GoogleMap;
-  loading: any;
-  coursePolyline: Polyline;
-  courseCoordinates = [
-    { lat: 35.548852, lng: 139.784086 },
-    { lat: 37.615223, lng: -122.389979 },
-    { lat: 21.324513, lng: -157.925074 },
-  ]
-  constructor(private platform: Platform, private geolocation: Geolocation) {
-    // This code is necessary for browser
-    Environment.setEnv({
-      'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyCiWyd342QI5mGVzEPc-tSCyk9rs6a1Jf8',
-      'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyCiWyd342QI5mGVzEPc-tSCyk9rs6a1Jf8'
-    });
-    this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
-      if (resp.coords) {
-        let latLng = new LatLng(resp.coords.latitude, resp.coords.longitude)
-        if (this.marker)
-          this.marker.setPosition(latLng)
-        this.map.setCameraTarget(latLng)
-      }
+    @ViewChild('sliderRef', { static: true }) protected slides: IonSlides;
+    @ViewChild('mapa', { static: true }) protected mapa: ElementRef;
+    private map: google.maps.Map;
+    private mapOptions: google.maps.MapOptions;
+    private marker: google.maps.Marker;
+    private polyline: google.maps.Polyline;
 
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
-
-    let watch = this.geolocation.watchPosition();
-    watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // data.coords.latitude
-      // data.coords.longitude
-      if (data.coords) {
-
-        let latLng = new LatLng(data.coords.latitude, data.coords.longitude)
-
-        this.marker.setPosition(latLng)
-        this.map.setCameraTarget(latLng)
-        this.courseCoordinates.push({ lat: data.coords.latitude, lng: data.coords.longitude })
-
-        if (this.coursePolyline) {
-          this.coursePolyline.empty()
-          this.coursePolyline.setPoints(this.courseCoordinates)
-        }
-      }
-    });
-  }
-
-  ionViewDidEnter(){
-    setInterval(() => {
-      this.contador = new Date(this.contador.setSeconds(this.contador.getSeconds() + 1));
-    }, 1000);
-  }
-  async ngOnInit() {
-    this.slides.update();
-    await this.platform.ready();
-    await this.loadMap()
-  }
-
-  loadMap() {
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: 43.0741904,
-          lng: -89.3809802
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
-
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
-
-    this.marker = this.map.addMarkerSync({
-      title: 'Ionic',
-      icon: 'blue',
-      animation: 'DROP',
-      position: {
-        lat: 43.0741904,
-        lng: -89.3809802
-      }
-    });
-    this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      alert('clicked');
-    });
-
-    this.courseCoordinates = [
-      { lat: 35.548852, lng: 139.784086 },
-      { lat: 37.615223, lng: -122.389979 },
-      { lat: 21.324513, lng: -157.925074 },
+    public distance: string = "5,80";
+    public time: string = "00:30:12";
+    public calories: number = 670;
+    public average_speed: string = "5,80";
+    public target_speed: number = 10;
+    // marker: Marker;
+    // map: GoogleMap;
+    loading: any;
+    // coursePolyline: Polyline;
+    private courseCoordinates: google.maps.LatLng[] = [
+        new google.maps.LatLng({ lat: -27.236593, lng: -48.648517 }),
+        new google.maps.LatLng({ lat: -27.236593, lng: -48.648517 }),
+        new google.maps.LatLng({ lat: -27.236501, lng: -48.648484 }),
+        new google.maps.LatLng({ lat: -27.236513, lng: -48.648393 }),
+        new google.maps.LatLng({ lat: -27.236561, lng: -48.648009 }),
+        new google.maps.LatLng({ lat: -27.236637, lng: -48.647338 })
     ];
-    this.coursePolyline = this.map.addPolylineSync({
-      points: this.courseCoordinates,
-      strokeColor: '#FF0000',
-      width: 5,
-      geodesic: true,
-    });
-  }
+
+    constructor(private platform: Platform) {
+    }
+
+    ngOnInit() {
+        this.slides.update().then(() => this.initMap());
+    }
+
+    private initMap(): void {
+        const latLng: google.maps.LatLng = new google.maps.LatLng(-19.919157, -43.938547);
+        this.mapOptions = {
+            center: latLng,
+            zoom: 18,
+            tilt: 30,
+            mapTypeControl: false,
+            fullscreenControl: false,
+            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            gestureHandling: 'cooperative'
+        };
+        this.map = new google.maps.Map(this.mapa.nativeElement, this.mapOptions);
+        this.marker = new google.maps.Marker({
+            animation: google.maps.Animation.DROP,
+            position: latLng,
+            map: this.map
+        });
+        this.polyline = new google.maps.Polyline({
+            path: this.courseCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeWeight: 2,
+            strokeOpacity: 1.0,
+            map: this.map
+        });
+    }
 }
