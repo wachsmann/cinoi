@@ -1,0 +1,9 @@
+.training-list {
+    width: 100%;
+    >.separator {
+        margin-top: 5px;
+    }
+    >.separator:nth-child(1) {
+        margin-top: 0px;
+    }
+}

@@ -1,0 +1,15 @@
+<div class="losango"></div>
+<ion-content fullscreen="true" scroll="false">
+
+    <div class="primary-title">OLÁ {{usuario.toUpperCase()}}</div>
+    <div class="basic-form">
+
+        <div class="icon-title">
+            <div class="title">
+                <b>TREINOS</b>
+            </div>
+            <ion-icon (click)="addNewTraining()" name="add-circle"></ion-icon>
+        </div>
+        <app-training-list #trainingList (OnTrainingClick)="editTraining($event)" (OnInitUpdate)="initLoadAnimation()" (OnFinishUpdate)="finishLoadAnimation()"></app-training-list>
+    </div>
+</ion-content>

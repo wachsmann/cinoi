@@ -9,18 +9,113 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+ion-content {
+    --background: transparent;
+    font-family: 'Segoe UI';
+}
+
+.losango {
+    width: 500px;
+    height: 500px;
+    margin-top: -200px;
+    position: fixed;
+    z-index: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: rgba($color: #0e76ad, $alpha: 1.0);
+}
+
+div.primary-title {
+    z-index: 100;
+    color: white;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 14pt;
+}
+
+div.basic-form {
+    @mixin title {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    height: 90%;
+    width: 95%;
+    min-height: 500px;
+    background-color: #f7f7f7;
+    border: solid 1px #e4e3e3;
+    border-radius: 10px;
+    z-index: 1000;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    padding: 10px;
+    overflow-y: scroll;
+    >.title {
+        @include title;
+    }
+    >form {
+        >.title {
+            @include title;
+        }
+    }
+    >.icon-title {
+        display: flex;
+        width: 100%;
+        >.title {
+            @include title;
+        }
+        ion-icon {
+            width: 35px;
+            height: 35px;
+            right: 20px;
+            position: absolute;
+        }
+    }
+    ion-input {
+        border: 1px solid #c9c9c9;
+        border-radius: 5px;
+        --background: white;
+        margin-bottom: 20px;
+        &.invalid {
+            border: 1px solid #ea6153;
+            margin-bottom: 0px;
+        }
+    }
+    p.invalid-message {
+        font-size: 0.8em;
+        color: #ea6153;
+        margin-bottom: 20px;
+    }
+    ion-button {
+        --background: #0e76ad;
+    }
+}

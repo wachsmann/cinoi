@@ -1,0 +1,100 @@
+<div class="losango"></div>
+<ion-content fullscreen="true" scroll="false">
+    <ion-slides #sliderRef pager="true">
+        <ion-slide>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <div class="box-time">
+                            <ion-text color="light" style="font-size: 50px;">
+                                <strong>{{ this.time }}</strong>
+                            </ion-text>
+                            <br>
+                            <ion-text color="light" class="average-text">
+                                Duração
+                            </ion-text>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <div class="box-distance">
+                            <ion-text color="light" style="font-size: 110px;">
+                                <strong>{{ this.distance }}</strong>
+                            </ion-text>
+                            <br>
+                            <ion-text color="light" class="average-text">
+                                Distância (km)
+                            </ion-text>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="box-detail">
+                    <ion-col>
+                        <div>
+                            <ion-text color="light" style="font-size: 35px;">
+                                <strong>{{ this.calories }}</strong>
+                            </ion-text>
+                            <br>
+                            <ion-text color="light" class="average-text">
+                                Calorias (kcal)
+                            </ion-text>
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                        <div>
+                            <ion-text color="light" style="font-size: 35px;">
+                                <strong>{{ this.average_speed }}</strong>
+                            </ion-text>
+                            <br>
+                            <ion-text color="light" class="average-text">
+                                Veloc. Média (km/h)
+                            </ion-text>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="box-pace">
+                    <ion-col>
+                        <ion-text style="font-size: 30px;">
+                            <strong><i>CORRENDO</i></strong>
+                        </ion-text>
+                        <br>
+                        <ion-text class="average-text">
+                            ({{ this.target_speed }} km/h)
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+        <ion-slide>
+            <ion-grid>
+                <ion-row class="box-pace">
+                    <ion-col>
+                        <ion-text style="font-size: 35px;">
+                            <strong>{{ this.time }}</strong>
+                        </ion-text>
+                        <br>
+                        <ion-text class="average-text">
+                            Duração
+                        </ion-text>
+                        <br>
+                        <ion-text style="font-size: 50px;">
+                            <strong>{{ this.distance }}</strong>
+                        </ion-text>
+                        <br>
+                        <ion-text class="average-text">
+                            Distância (km)
+                        </ion-text>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="box-map">
+                    <ion-col>
+                        <div #mapa class="map_canvas">
+
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

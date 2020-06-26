@@ -1,0 +1,53 @@
+ion-content {
+    --background: #0e76ad;
+    text-align: center;
+    height: 100vh;
+}
+
+ion-slides {
+    --bullet-background: white;
+    --bullet-background-active: white;
+    height: 100vh;
+    ion-grid {
+        height: 100vh;
+    }
+}
+
+ion-text {
+    font-family: "Segoe UI";
+}
+
+.average-text {
+    font-size: 20px;
+}
+
+.box-time {
+    margin-top: 2vh;
+}
+
+.box-distance {
+    margin-top: 10%;
+}
+
+.box-detail {
+    margin-top: 10%;
+}
+
+.box-pace {
+    margin-top: 10%;
+    background-color: white;
+    color: #0e76ad;
+    margin: 25px;
+    padding: 10px;
+    border-radius: 25px;
+    font-weight: 700;
+}
+
+.box-map {
+    height: 60%;
+}
+
+.map_canvas {
+    height: 100%;
+    width: 100%;
+}
