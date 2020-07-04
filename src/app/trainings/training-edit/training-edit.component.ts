@@ -1,8 +1,8 @@
-import { TrainingsService } from '../trainings.service';
 import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Training from '../training.model';
+import { Observable } from 'rxjs';
+import { TrainingService, Training } from 'src/app/service/training.service';
 
 @Component({
   selector: 'app-training-edit',
@@ -18,7 +18,7 @@ export class TrainingEditComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private trainingService: TrainingsService,
+    private trainingService: TrainingService,
     private alertController: AlertController) {
     this.formControl = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -30,11 +30,11 @@ export class TrainingEditComponent implements OnInit {
   ngOnInit() {
     if (this.mode === 'new') {
       this.editing = {
-        id: -1,
         distance: null,
         name: null,
         velocity: null
       };
+
     } else {
       this.editing = Object.assign({}, this.training);
     }
@@ -73,7 +73,8 @@ export class TrainingEditComponent implements OnInit {
   create() {
     this.submitAttempt = true;
     if (this.formControl.status === 'VALID') {
-      this.trainingService.add(this.editing);
+      // this.trainingService.add(this.editing);
+      this.trainingService.addTraining(this.editing);
       return this.showSuccessAlert();
     }
     this.showErrorAlert('Erro de teste');
@@ -81,8 +82,9 @@ export class TrainingEditComponent implements OnInit {
 
   edit() {
     this.submitAttempt = true;
-    if (this.formControl.status === 'VALID'){
-      this.trainingService.set(this.editing);
+    if (this.formControl.status === 'VALID') {
+      // this.trainingService.set(this.editing);
+      this.trainingService.updateTraining(this.editing);
       return this.showSuccessAlert();
     }
     this.showErrorAlert('Erro de teste');

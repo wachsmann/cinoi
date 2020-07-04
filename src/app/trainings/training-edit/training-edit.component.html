@@ -10,20 +10,30 @@
             </div>
 
             <ion-label position="stacked">Nome do Treino</ion-label>
-            <ion-input [(ngModel)]="editing.name" name="name" formControlName="nome" [class.invalid]="!formControl.controls.nome.valid && (formControl.controls.nome.dirty || submitAttempt)" inputmode="text" type="text" placeholder="Digite o Nome do Treino"></ion-input>
-            <p *ngIf="!formControl.controls.nome.valid && (formControl.controls.nome.dirty || submitAttempt)" class="invalid-message">É necessário inserir um nome</p>
+            <ion-input [(ngModel)]="editing.name" name="name" formControlName="nome"
+                [class.invalid]="!formControl.controls.nome.valid && (formControl.controls.nome.dirty || submitAttempt)"
+                inputmode="text" type="text" placeholder="Digite o Nome do Treino"></ion-input>
+            <p *ngIf="!formControl.controls.nome.valid && (formControl.controls.nome.dirty || submitAttempt)"
+                class="invalid-message">É necessário inserir um nome</p>
 
             <ion-label position="stacked">Distância (Km)</ion-label>
-            <ion-input [(ngModel)]="editing.distance" name="distance" formControlName="distancia" [class.invalid]="!formControl.controls.distancia.valid && (formControl.controls.distancia.dirty || submitAttempt)" inputmode="decimal" type="number" placeholder="Digite a Distância">
+            <ion-input [(ngModel)]="editing.distance" name="distance" formControlName="distancia"
+                [class.invalid]="!formControl.controls.distancia.valid && (formControl.controls.distancia.dirty || submitAttempt)"
+                inputmode="decimal" type="number" placeholder="Digite a Distância">
             </ion-input>
-            <p *ngIf="!formControl.controls.distancia.valid && (formControl.controls.distancia.dirty || submitAttempt)" class="invalid-message">É necessário inserir a distância a percorrer</p>
+            <p *ngIf="!formControl.controls.distancia.valid && (formControl.controls.distancia.dirty || submitAttempt)"
+                class="invalid-message">É necessário inserir a distância a percorrer</p>
 
             <ion-label position="stacked">Velocidade (Km/h)</ion-label>
-            <ion-input [(ngModel)]="editing.velocity" name="velocity" formControlName="velocidade" [class.invalid]="!formControl.controls.velocidade.valid && (formControl.controls.velocidade.dirty || submitAttempt)" inputmode="decimal" type="number" placeholder="Digite a Velocidade">
+            <ion-input [(ngModel)]="editing.velocity" name="velocity" formControlName="velocidade"
+                [class.invalid]="!formControl.controls.velocidade.valid && (formControl.controls.velocidade.dirty || submitAttempt)"
+                inputmode="decimal" type="number" placeholder="Digite a Velocidade">
             </ion-input>
-            <p *ngIf="!formControl.controls.velocidade.valid && (formControl.controls.velocidade.dirty || submitAttempt)" class="invalid-message">É necessário inserir uma velocidade média</p>
+            <p *ngIf="!formControl.controls.velocidade.valid && (formControl.controls.velocidade.dirty || submitAttempt)"
+                class="invalid-message">É necessário inserir uma velocidade média</p>
 
-            <ion-button *ngIf="this.mode === 'new'" (click)="create()" type="submit" expand="block">CADASTRAR</ion-button>
+            <ion-button *ngIf="this.mode === 'new'" (click)="create()" type="submit" expand="block">CADASTRAR
+            </ion-button>
             <ion-button *ngIf="this.mode === 'edit'" (click)="edit()" type="submit" expand="block">SALVAR</ion-button>
         </form>
     </div>
