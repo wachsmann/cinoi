@@ -4,7 +4,7 @@
     <div *ngIf="this.user" class="primary-title">OLÁ {{this.user.name.toUpperCase()}}</div>
     <div class="basic-form">
         <div class="title"><b>HOME</b></div>
-        <ion-button [routerLink]="['/trainings', {usuario: 'Hugo Tomazi Busnardo'}]" routerDirection="forward" expand="block">TREINOS</ion-button>
+        <ion-button [routerLink]="['/trainings']" routerDirection="forward" expand="block">TREINOS</ion-button>
         <ion-button (click)="logout()" expand="block">SAIR</ion-button>
     </div>
 </ion-content>

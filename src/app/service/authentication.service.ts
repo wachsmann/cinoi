@@ -50,8 +50,11 @@ export class AuthenticationService {
     return this.user;
   }
 
-  login(userId) {
-    return this.storage.set(TOKEN_KEY, userId).then(() => {
+  login(user: LoginUser) {
+    return this.storage.set(TOKEN_KEY, user.id)
+    .then(() => this.storage.set('user', user))
+    .then(() => {
+      this.user = user;
       this.authenticationState.next(true);
     });
   }
@@ -73,11 +76,10 @@ export class AuthenticationService {
           take(1),
           map(actions => {
             return actions.map(a => {
-              const userData: any = a.payload.doc.data();
-              userData.id = a.payload.doc.id;
-              this.storage.set('user', userData);
               const id = a.payload.doc.id;
-              return { id };
+              const userData: any = a.payload.doc.data();
+              userData.id = id;
+              return { userData };
             });
           }));
   }

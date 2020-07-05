@@ -1,5 +1,5 @@
 import { LoginUser } from './../service/authentication.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
@@ -7,12 +7,14 @@ import { AuthenticationService } from '../service/authentication.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   user: LoginUser;
-  constructor(private authService: AuthenticationService) {
-    this.user = this.authService.getUser();
-  }
+  constructor(private authService: AuthenticationService) {}
 
+  ngOnInit() {
+    this.user = this.authService.getUser();
+    console.log(this.user);
+  }
   logout() {
     this.authService.logout();
   }

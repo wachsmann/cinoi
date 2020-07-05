@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     if (this.user.email != '' && this.user.password != '') {
       this.authenticationService.checkUser(this.user).subscribe(res => {
         if (res.length > 0) {
-          this.authService.login(res[0].id);
+          this.authService.login(res[0].userData);
         }
         else {
           this.showToast('Usuário não encontrado, tente novamente!');
