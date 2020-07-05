@@ -7,7 +7,7 @@
                     <ion-col>
                         <div class="box-time">
                             <ion-text color="light" style="font-size: 50px;">
-                                <strong>{{ this.time }}</strong>
+                                <strong>{{ this.formatDuration(this.runningTime) }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -20,7 +20,7 @@
                     <ion-col>
                         <div class="box-distance">
                             <ion-text color="light" style="font-size: 110px;">
-                                <strong>{{ this.distance }}</strong>
+                                <strong>{{ this.route.getDistanceInKm().toFixed(2) }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -33,7 +33,7 @@
                     <ion-col>
                         <div>
                             <ion-text color="light" style="font-size: 35px;">
-                                <strong>{{ this.calories }}</strong>
+                                <strong *ngIf="this.person">{{ this.calories.toFixed(2) }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -44,7 +44,7 @@
                     <ion-col>
                         <div>
                             <ion-text color="light" style="font-size: 35px;">
-                                <strong>{{ this.average_speed }}</strong>
+                                <strong>{{ this.route.getAverageSpeed().toFixed(2) }}</strong>
                             </ion-text>
                             <br>
                             <ion-text color="light" class="average-text">
@@ -60,7 +60,7 @@
                         </ion-text>
                         <br>
                         <ion-text class="average-text">
-                            ({{ this.target_speed }} km/h)
+                            (Objetivo: {{ this.training.velocity }} km/h)
                         </ion-text>
                     </ion-col>
                 </ion-row>
@@ -71,7 +71,7 @@
                 <ion-row class="box-pace">
                     <ion-col>
                         <ion-text style="font-size: 35px;">
-                            <strong>{{ this.time }}</strong>
+                            <strong>{{ this.formatDuration(this.runningTime) }}</strong>
                         </ion-text>
                         <br>
                         <ion-text class="average-text">
@@ -79,7 +79,7 @@
                         </ion-text>
                         <br>
                         <ion-text style="font-size: 50px;">
-                            <strong>{{ this.distance }}</strong>
+                            <strong>{{ this.route.getDistanceInKm().toFixed(2) }}</strong>
                         </ion-text>
                         <br>
                         <ion-text class="average-text">
