@@ -44,7 +44,7 @@ export class TrainingsPage {
       component: TrainingViewComponent,
       componentProps: {
         training
-       }
+      }
     });
     await modal.present();
     await modal.onWillDismiss();

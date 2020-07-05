@@ -10,6 +10,8 @@
             </div>
             <ion-icon (click)="addNewTraining()" name="add-circle"></ion-icon>
         </div>
-        <app-training-list #trainingList (OnTrainingClick)="editTraining($event)" (OnInitUpdate)="initLoadAnimation()" (OnFinishUpdate)="finishLoadAnimation()"></app-training-list>
+        <app-training-list #trainingList (OnTrainingClick)="editTraining($event)" (OnInitUpdate)="initLoadAnimation()"
+            (OnFinishUpdate)="finishLoadAnimation()"></app-training-list>
+
     </div>
 </ion-content>
