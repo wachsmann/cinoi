@@ -1,4 +1,3 @@
-import { AuthenticationService, LoginUser } from './../service/authentication.service';
 import { TrainingViewComponent } from './training-view/training-view.component';
 import { TrainingEditComponent } from './training-edit/training-edit.component';
 import { TrainingListComponent } from './training-list/training-list.component';
@@ -14,20 +13,21 @@ import Training from './training.model';
   templateUrl: './trainings.page.html',
   styleUrls: ['./trainings.page.scss']
 })
-export class TrainingsPage {
-  public usuario: LoginUser;
+export class TrainingsPage implements OnInit {
+  public usuario: string;
   public loadingObject: Promise<HTMLIonLoadingElement>;
   @ViewChild('trainingList') trainingList: TrainingListComponent;
   constructor(
+    private route: ActivatedRoute,
     public loadingController: LoadingController,
-    private modalController: ModalController,
-    private authService: AuthenticationService) {
-      this.usuario = this.authService.getUser();
+    private modalController: ModalController) {
+    this.usuario = this.route.snapshot.paramMap.get('usuario');
+  }
+  ngOnInit() {
   }
   ionViewWillEnter() {
     this.trainingList.update();
   }
-
   async addNewTraining() {
     const modal = await this.modalController.create({
       component: TrainingEditComponent,

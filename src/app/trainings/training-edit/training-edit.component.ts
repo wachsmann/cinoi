@@ -34,6 +34,7 @@ export class TrainingEditComponent implements OnInit {
         name: null,
         velocity: null
       };
+
     } else {
       this.editing = Object.assign({}, this.training);
     }
