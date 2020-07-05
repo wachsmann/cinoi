@@ -8,8 +8,16 @@ import { map, take } from 'rxjs/operators';
 const TOKEN_KEY = 'auth-token';
 
 export interface User {
-  email: string,
-  password: string
+  email: '';
+  password: '';
+}
+
+export interface LoginUser {
+  email: string;
+  height: number;
+  name: string;
+  password: string;
+  weight: number;
 }
 
 @Injectable({
@@ -18,23 +26,33 @@ export interface User {
 export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(false);
-
+  user: LoginUser;
   constructor(private afs: AngularFirestore, private storage: Storage, private plt: Platform) {
+    this.user = null;
     this.plt.ready().then(() => {
       this.checkToken();
     });
   }
 
   checkToken() {
-    this.storage.get(TOKEN_KEY).then(res => {
-      if (res) {
-        this.authenticationState.next(true);
-      }
-    })
+    this.storage.get(TOKEN_KEY).then(userId => {
+      if (!userId)
+        return;
+
+      this.authenticationState.next(true);
+    });
   }
 
-  login(id_user) {
-    return this.storage.set(TOKEN_KEY, id_user).then(() => {
+  getUser(): Promise<LoginUser> {
+    return new Promise<LoginUser>((resolve) => {
+      this.storage.get('user').then((user: LoginUser) => {
+        resolve(user);
+      });
+    });
+  }
+
+  login(userId) {
+    return this.storage.set(TOKEN_KEY, userId).then(() => {
       this.authenticationState.next(true);
     });
   }
@@ -54,6 +72,7 @@ export class AuthenticationService {
       take(1),
       map(actions => {
         return actions.map(a => {
+          this.storage.set('user', a.payload.doc.data());
           const id = a.payload.doc.id;
           return { id };
         });

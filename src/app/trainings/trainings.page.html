@@ -1,7 +1,7 @@
 <div class="losango"></div>
 <ion-content fullscreen="true" scroll="false">
 
-    <div class="primary-title">OLÁ {{usuario.toUpperCase()}}</div>
+    <div *ngIf="this.usuario" class="primary-title">OLÁ {{this.usuario.name.toUpperCase()}}</div>
     <div class="basic-form">
 
         <div class="icon-title">

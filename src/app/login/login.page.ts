@@ -14,7 +14,10 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
-  constructor(private authenticationService: AuthenticationService, private toastCtrl: ToastController, private authService: AuthenticationService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private toastCtrl: ToastController,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
   }

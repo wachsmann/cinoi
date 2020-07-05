@@ -45,7 +45,6 @@ export class TrainingViewComponent implements OnInit {
     await editTraining.present();
     await editTraining.onWillDismiss();
     this.training = this.trainingService.get().find(training => training.id === this.training.id);
-    console.log(this.training);
   }
 
   async deleteTraining() {

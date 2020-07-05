@@ -19,7 +19,11 @@ export class RegisterPage implements OnInit {
     weight: 0
   };
 
-  constructor(private registerService: RegisterService, private router: Router, private toastCtrl: ToastController, private authService: AuthenticationService) { }
+  constructor(
+    private registerService: RegisterService,
+    private router: Router,
+    private toastCtrl: ToastController,
+    private authService: AuthenticationService) { }
 
   ngOnInit() { }
 

@@ -1,3 +1,4 @@
+import { LoginUser } from './../service/authentication.service';
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -7,7 +8,10 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private authService: AuthenticationService) { }
+  user: LoginUser;
+  constructor(private authService: AuthenticationService) {
+    this.authService.getUser().then((user) => this.user = user);
+  }
 
   logout() {
     this.authService.logout();
