@@ -1,13 +1,22 @@
+import { AuthenticationService, LoginUser } from './authentication.service';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 export interface Training {
-  id?: string,
-  name: string,
-  distance: number,
-  velocity: number
+  id?: string;
+  name: string;
+  distance: number;
+  velocity: number;
+}
+
+interface TrainingFirebaseModel {
+  id?: string;
+  name: string;
+  distance: number;
+  velocity: number;
+  userId: string;
 }
 
 @Injectable({
@@ -15,10 +24,12 @@ export interface Training {
 })
 export class TrainingService {
   private trainings: Observable<Training[]>;
-  private trainingCollection: AngularFirestoreCollection<Training>;
+  private trainingCollection: AngularFirestoreCollection<TrainingFirebaseModel>;
+  private user: LoginUser;
 
-  constructor(private afs: AngularFirestore) {
-    this.trainingCollection = this.afs.collection<Training>('training');
+  constructor(private afs: AngularFirestore, private authService: AuthenticationService) {
+    this.user = this.authService.getUser();
+    this.trainingCollection = this.afs.collection<TrainingFirebaseModel>('training', ref => ref.where('userId', '==', this.user.id));
     this.trainings = this.trainingCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -38,18 +49,37 @@ export class TrainingService {
     return this.trainingCollection.doc<Training>(id).valueChanges().pipe(
       take(1),
       map(idea => {
-        idea.id = id;
-        return idea
+        const training: Training = {
+          id,
+          distance: idea.distance,
+          velocity: idea.velocity,
+          name: idea.name
+        };
+        return training;
       })
     );
   }
 
   addTraining(training: Training): Promise<DocumentReference> {
-    return this.trainingCollection.add(training);
+    const modelTraining: TrainingFirebaseModel = {
+      distance: training.distance,
+      velocity: training.velocity,
+      name: training.name,
+      userId: this.user.id
+    };
+    return this.trainingCollection.add(modelTraining);
   }
 
   updateTraining(training: Training): Promise<void> {
-    return this.trainingCollection.doc(training.id).update({ name: training.name, distance: training.distance, velocity: training.velocity });
+    return this.trainingCollection
+      .doc(training.id)
+      .update({
+        name: training.name,
+        distance: training.distance,
+        velocity:
+          training.velocity,
+        userId: this.user.id
+      });
   }
 
   deleteTraining(id: string): Promise<void> {

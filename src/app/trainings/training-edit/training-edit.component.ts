@@ -34,14 +34,13 @@ export class TrainingEditComponent implements OnInit {
         name: null,
         velocity: null
       };
-
     } else {
       this.editing = Object.assign({}, this.training);
     }
   }
 
-  async showSuccessAlert() {
-    const alert = await this.alertController.create({
+  showSuccessAlert() {
+    this.alertController.create({
       message: `Treino ${this.mode === 'new' ? 'cadastrado' : 'alterado'} com sucesso!`,
       backdropDismiss: false,
       keyboardClose: true,
@@ -51,12 +50,11 @@ export class TrainingEditComponent implements OnInit {
           this.modalController.dismiss();
         }
       }]
-    });
-    await alert.present();
+    }).then(alert => alert.present());
   }
 
-  async showErrorAlert(error: string) {
-    const alert = await this.alertController.create({
+  showErrorAlert(error: string) {
+    this.alertController.create({
       header: 'Erro',
       message: `Erro ao ${this.mode === 'new' ? 'cadastrar' : 'alterar'} treino:<br>${error}`,
       keyboardClose: true,
@@ -66,27 +64,22 @@ export class TrainingEditComponent implements OnInit {
           this.alertController.dismiss();
         }
       }]
-    });
-    await alert.present();
+    }).then(alert => alert.present());
   }
 
   create() {
     this.submitAttempt = true;
     if (this.formControl.status === 'VALID') {
-      // this.trainingService.add(this.editing);
       this.trainingService.addTraining(this.editing);
       return this.showSuccessAlert();
     }
-    this.showErrorAlert('Erro de teste');
   }
 
   edit() {
     this.submitAttempt = true;
     if (this.formControl.status === 'VALID') {
-      // this.trainingService.set(this.editing);
       this.trainingService.updateTraining(this.editing);
       return this.showSuccessAlert();
     }
-    this.showErrorAlert('Erro de teste');
   }
 }

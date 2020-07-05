@@ -22,7 +22,7 @@ export class TrainingsPage {
     public loadingController: LoadingController,
     private modalController: ModalController,
     private authService: AuthenticationService) {
-      this.authService.getUser().then(user => this.usuario = user);
+      this.usuario = this.authService.getUser();
   }
 
   ionViewWillEnter(){

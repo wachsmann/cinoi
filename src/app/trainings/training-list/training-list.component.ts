@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TrainingService, Training } from 'src/app/service/training.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-training-list',
@@ -8,7 +7,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./training-list.component.scss'],
 })
 export class TrainingListComponent implements OnInit {
-  private trainings: Observable<Training[]>;
+  protected trainings: Training[];
 
   @Output() OnInitUpdate: EventEmitter<void> = new EventEmitter();
   @Output() OnFinishUpdate: EventEmitter<void> = new EventEmitter();
@@ -18,9 +17,9 @@ export class TrainingListComponent implements OnInit {
   ngOnInit() { }
   update(): void {
     this.OnInitUpdate.emit();
-    setTimeout(() => {
-      this.trainings = this.trainingsService.getTrainings();
+    this.trainingsService.getTrainings().subscribe(trainings => {
+      this.trainings = trainings;
       this.OnFinishUpdate.emit();
-    }, 1000);
+    });
   }
 }

@@ -32,15 +32,6 @@ export class LoginPage implements OnInit {
           this.showToast('Usuário não encontrado, tente novamente!');
         }
       });
-
-      // this.authenticationService.checkUser(this.user).subscribe(res => {
-      //   if (res.length > 0) {
-      //     this.authService.login("TESTE123");
-      //   }
-      //   else {
-      //     this.showToast('Usuário não encontrado, tente novamente!');
-      //   }
-      // });
     } else {
       this.showToast('Preencha todos os campos!');
     }

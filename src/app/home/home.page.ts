@@ -10,7 +10,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class HomePage {
   user: LoginUser;
   constructor(private authService: AuthenticationService) {
-    this.authService.getUser().then((user) => this.user = user);
+    this.user = this.authService.getUser();
   }
 
   logout() {

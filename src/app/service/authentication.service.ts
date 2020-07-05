@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreCollection, AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -13,6 +13,7 @@ export interface User {
 }
 
 export interface LoginUser {
+  id: string;
   email: string;
   height: number;
   name: string;
@@ -24,9 +25,8 @@ export interface LoginUser {
   providedIn: 'root'
 })
 export class AuthenticationService {
-
   authenticationState = new BehaviorSubject(false);
-  user: LoginUser;
+  private user: LoginUser;
   constructor(private afs: AngularFirestore, private storage: Storage, private plt: Platform) {
     this.user = null;
     this.plt.ready().then(() => {
@@ -39,16 +39,15 @@ export class AuthenticationService {
       if (!userId)
         return;
 
-      this.authenticationState.next(true);
+      this.storage.get('user').then(user => {
+        this.user = user;
+        this.authenticationState.next(true);
+      });
     });
   }
 
-  getUser(): Promise<LoginUser> {
-    return new Promise<LoginUser>((resolve) => {
-      this.storage.get('user').then((user: LoginUser) => {
-        resolve(user);
-      });
-    });
+  getUser(): LoginUser {
+    return this.user;
   }
 
   login(userId) {
@@ -58,9 +57,9 @@ export class AuthenticationService {
   }
 
   logout() {
-    return this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
-    });
+    return this.storage.remove(TOKEN_KEY)
+    .then(() => this.storage.remove('user'))
+    .then(() => this.authenticationState.next(false));
   }
 
   isAuthenticated() {
@@ -68,16 +67,19 @@ export class AuthenticationService {
   }
 
   checkUser(user: User): any {
-    return this.afs.collection(`user`, ref => ref.where('email', "==", user.email).where('password', '==', user.password)).snapshotChanges().pipe(
-      take(1),
-      map(actions => {
-        return actions.map(a => {
-          this.storage.set('user', a.payload.doc.data());
-          const id = a.payload.doc.id;
-          return { id };
-        });
-      })
-    );
+    return this.afs.collection(`user`,
+      ref => ref.where('email', '==', user.email)
+        .where('password', '==', user.password)).snapshotChanges().pipe(
+          take(1),
+          map(actions => {
+            return actions.map(a => {
+              const userData: any = a.payload.doc.data();
+              userData.id = a.payload.doc.id;
+              this.storage.set('user', userData);
+              const id = a.payload.doc.id;
+              return { id };
+            });
+          }));
   }
 }
 
