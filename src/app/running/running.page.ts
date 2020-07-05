@@ -1,7 +1,8 @@
 import { AuthenticationService, LoginUser } from './../service/authentication.service';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { IonSlides, Platform } from '@ionic/angular';
+import { IonSlides, Platform, NavController, ModalController } from '@ionic/angular';
 import { google } from 'google-maps';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { ToastController } from '@ionic/angular';
 import {
     BackgroundGeolocation,
@@ -13,7 +14,7 @@ import {
 
 import { Route, Point, Person } from './model/running.model';
 import Training from '../trainings/training.model';
-import { App, AppState } from '@capacitor/core';
+import { App, AppState, LocalNotificationsPluginWeb } from '@capacitor/core';
 import moment from 'moment';
 @Component({
     selector: 'app-running',
@@ -31,6 +32,8 @@ export class RunningPage implements OnInit {
     private courseCoordinates: google.maps.LatLng[] = [];
     private lastPoint: Point;
     private timer: any;
+    private minSpeakTime = 60;
+    private lastSpeakTime = Date.now();
     private initialTime: number = Date.now();
 
     public person: Person;
@@ -42,7 +45,8 @@ export class RunningPage implements OnInit {
         private backgroundGeolocation: BackgroundGeolocation,
         private platform: Platform,
         private toastController: ToastController,
-        private authService: AuthenticationService) { }
+        private authService: AuthenticationService,
+        private tts: TextToSpeech) { }
 
     initTrack() {
         const config: BackgroundGeolocationConfig = {
@@ -58,34 +62,32 @@ export class RunningPage implements OnInit {
         };
         this.backgroundGeolocation.configure(config).then(() => {
             this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
-                console.log('teste1');
-                if (!location)
-                    return;
-
-                console.log('teste');
                 const currentPosition = new google.maps.LatLng(location.latitude, location.longitude);
                 this.map.setCenter(currentPosition);
                 this.marker.setPosition(currentPosition);
                 this.courseCoordinates.push(currentPosition);
                 this.polyline.setPath(this.courseCoordinates);
-                if (this.lastPoint){
-                    this.calories += this.person.calculateCalories(this.route.getAverageSpeedPointToPoint(this.lastPoint, {
-                        latitude: location.latitude,
-                        longitude: location.longitude,
-                        time: location.time
-                    }));
-                }
-                this.lastPoint = {
+                const currentPoint = {
                     latitude: location.latitude,
                     longitude: location.longitude,
                     time: location.time
                 };
-                this.route.addPoint(this.lastPoint);
-                // const timer = setTimeout(() => {
-                //     if ((Date.now() - this.lastPoint.time) <= 5000) {
-                //         return clearTimeout(timer);
-                //     }
-                // }, 5000);
+                if (this.lastPoint)
+                    this.calories += this.person.calculateCalories(this.route.getAverageSpeedPointToPoint(this.lastPoint, currentPoint));
+
+                this.route.addPoint(currentPoint);
+
+                if (this.lastPoint && (Date.now() - this.lastSpeakTime) > (this.minSpeakTime * 1000)) {
+                    const velocity = this.route.getAverageSpeed();
+                    if (velocity < this.training.velocity - (this.training.velocity * 0.2)) {
+                        this.lastSpeakTime = Date.now();
+                        this.speak('Você está abaixo da velocidade média! Corra mais rápido!');
+                    } else if (velocity > this.training.velocity) {
+                        this.lastSpeakTime = Date.now();
+                        this.speak('Você está acima da velocidade média! Parabéns!');
+                    }
+                }
+                this.lastPoint = currentPoint;
                 this.backgroundGeolocation.finish();
             });
 
@@ -106,20 +108,28 @@ export class RunningPage implements OnInit {
 
         this.backgroundGeolocation.start();
     }
+
+    speak(text: string) {
+        this.tts.speak({
+            text,
+            locale: 'pt-BR',
+            rate: 1
+        });
+    }
     ngOnInit() {
         this.slides.update()
-        .then(() => this.authService.getUser())
-        .then(user => {
-            this.person = new Person(user.height, user.weight);
-            this.initMap();
-            this.initTimerForegroundCount();
-            App.addListener('appStateChange', (state: AppState) => {
-                if (!state.isActive)
-                    return clearInterval(this.timer);
-
+            .then(() => this.authService.getUser())
+            .then(user => {
+                this.person = new Person(user.height, user.weight);
+                this.initMap();
                 this.initTimerForegroundCount();
+                App.addListener('appStateChange', (state: AppState) => {
+                    if (!state.isActive)
+                        return clearInterval(this.timer);
+
+                    this.initTimerForegroundCount();
+                });
             });
-        });
     }
 
     initTimerForegroundCount(): void {
@@ -127,7 +137,7 @@ export class RunningPage implements OnInit {
         this.timer = setInterval(() => this.runningTime = moment.duration(Date.now() - this.initialTime), 1000);
     }
 
-    ionViewWillLeave() {
+    ionViewDidLeave() {
         clearInterval(this.timer);
         google.maps.event.clearListeners(this.map, 'idle');
         this.backgroundGeolocation.stop();

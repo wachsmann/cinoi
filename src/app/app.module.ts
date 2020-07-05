@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx'
     StatusBar,
     SplashScreen,
     BackgroundGeolocation,
+    TextToSpeech,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: SETTINGS, useValue: {} }
   ],

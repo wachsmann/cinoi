@@ -38,16 +38,21 @@ export class TrainingsPage {
     await modal.present();
     await modal.onWillDismiss();
   }
-  async editTraining(training: Training) {
-    const modal = await this.modalController.create({
+  editTraining(training: Training) {
+    this.modalController.create({
       component: TrainingViewComponent,
       componentProps: {
         training
       }
+    }).then(modal => {
+      modal.onWillDismiss().then(() => {
+        console.log('teste');
+        return false;
+      });
+      modal.present();
     });
-    await modal.present();
-    await modal.onWillDismiss();
   }
+
   initLoadAnimation() {
     this.loadingObject = this.loadingController.create({
       message: 'Carregando...',
