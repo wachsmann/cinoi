@@ -75,7 +75,7 @@ export class Person {
         this.weight = weight;
     }
 
-    calculateCalories(speed: number): number {
-        return (speed * this.weight * 0.0175) / 60;
+    calculateCalories(speed: number, seconds: number): number {
+        return ((speed * this.weight * 0.0175) / 60) * seconds;
     }
 }

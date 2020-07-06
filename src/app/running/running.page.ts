@@ -73,7 +73,9 @@ export class RunningPage implements OnInit {
                     time: location.time
                 };
                 if (this.lastPoint)
-                    this.calories += this.person.calculateCalories(this.route.getAverageSpeedPointToPoint(this.lastPoint, currentPoint));
+                    this.calories += this.person.calculateCalories(
+                        this.route.getAverageSpeedPointToPoint(this.lastPoint, currentPoint),
+                        (currentPoint.time - this.lastPoint.time) / 1000);
 
                 this.route.addPoint(currentPoint);
 
