@@ -1,3 +1,4 @@
+import { AuthenticationService, LoginUser } from './../service/authentication.service';
 import { TrainingViewComponent } from './training-view/training-view.component';
 import { TrainingEditComponent } from './training-edit/training-edit.component';
 import { TrainingListComponent } from './training-list/training-list.component';
@@ -13,21 +14,20 @@ import Training from './training.model';
   templateUrl: './trainings.page.html',
   styleUrls: ['./trainings.page.scss']
 })
-export class TrainingsPage implements OnInit {
-  public usuario: string;
+export class TrainingsPage {
+  public usuario: LoginUser;
   public loadingObject: Promise<HTMLIonLoadingElement>;
   @ViewChild('trainingList') trainingList: TrainingListComponent;
   constructor(
-    private route: ActivatedRoute,
     public loadingController: LoadingController,
-    private modalController: ModalController) {
-    this.usuario = this.route.snapshot.paramMap.get('usuario');
+    private modalController: ModalController,
+    private authService: AuthenticationService) {
+      this.usuario = this.authService.getUser();
   }
-  ngOnInit() {
-  }
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.trainingList.update();
   }
+
   async addNewTraining() {
     const modal = await this.modalController.create({
       component: TrainingEditComponent,
@@ -38,16 +38,21 @@ export class TrainingsPage implements OnInit {
     await modal.present();
     await modal.onWillDismiss();
   }
-  async editTraining(training: Training) {
-    const modal = await this.modalController.create({
+  editTraining(training: Training) {
+    this.modalController.create({
       component: TrainingViewComponent,
       componentProps: {
         training
-       }
+      }
+    }).then(modal => {
+      modal.onWillDismiss().then(() => {
+        console.log('teste');
+        return false;
+      });
+      modal.present();
     });
-    await modal.present();
-    await modal.onWillDismiss();
   }
+
   initLoadAnimation() {
     this.loadingObject = this.loadingController.create({
       message: 'Carregando...',

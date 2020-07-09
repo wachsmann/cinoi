@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { RegisterService, User } from '../service/register.service';
 import { ToastController } from '@ionic/angular';
-import { AuthenticationService } from '../service/authentication.service';
+import { AuthenticationService, LoginUser } from '../service/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -13,20 +12,31 @@ export class RegisterPage implements OnInit {
 
   user: User = {
     email: '',
-    height: '',
+    height: null,
     name: '',
     password: '',
-    weight: 0
+    weight: null
   };
 
-  constructor(private registerService: RegisterService, private router: Router, private toastCtrl: ToastController, private authService: AuthenticationService) { }
+  constructor(
+    private registerService: RegisterService,
+    private toastCtrl: ToastController,
+    private authService: AuthenticationService) { }
 
   ngOnInit() { }
 
   register() {
-    if (this.user.email != '' && this.user.height != '' && this.user.name != '' && this.user.password != '' && this.user.weight != 0) {
+    if (this.user.email != '' && this.user.height != null && this.user.name != '' && this.user.password != '' && this.user.weight != null) {
       this.registerService.addUser(this.user).then((res) => {
-        this.authService.login(res.id);
+        const loginUser: LoginUser = {
+          id: res.id,
+          email: this.user.email,
+          height: this.user.height,
+          name: this.user.name,
+          password: this.user.password,
+          weight: this.user.weight
+        };
+        this.authService.login(loginUser);
       }, err => {
         this.showToast('Erro ao realizar o cadastro, tenta novamente mais tarde!');
       });

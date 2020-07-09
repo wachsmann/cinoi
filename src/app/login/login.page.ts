@@ -14,7 +14,10 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
-  constructor(private authenticationService: AuthenticationService, private toastCtrl: ToastController, private authService: AuthenticationService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private toastCtrl: ToastController,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -23,21 +26,12 @@ export class LoginPage implements OnInit {
     if (this.user.email != '' && this.user.password != '') {
       this.authenticationService.checkUser(this.user).subscribe(res => {
         if (res.length > 0) {
-          this.authService.login(res[0].id);
+          this.authService.login(res[0].userData);
         }
         else {
           this.showToast('Usuário não encontrado, tente novamente!');
         }
       });
-
-      // this.authenticationService.checkUser(this.user).subscribe(res => {
-      //   if (res.length > 0) {
-      //     this.authService.login("TESTE123");
-      //   }
-      //   else {
-      //     this.showToast('Usuário não encontrado, tente novamente!');
-      //   }
-      // });
     } else {
       this.showToast('Preencha todos os campos!');
     }

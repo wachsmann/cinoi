@@ -1,8 +1,7 @@
-import { TrainingsService } from '../trainings.service';
 import { Component, OnInit, EventEmitter, Output, Input, SimpleChanges } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import Training from '../training.model';
+import { TrainingService, Training } from 'src/app/service/training.service';
 
 @Component({
   selector: 'app-training-edit',
@@ -18,7 +17,7 @@ export class TrainingEditComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     private formBuilder: FormBuilder,
-    private trainingService: TrainingsService,
+    private trainingService: TrainingService,
     private alertController: AlertController) {
     this.formControl = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -30,18 +29,18 @@ export class TrainingEditComponent implements OnInit {
   ngOnInit() {
     if (this.mode === 'new') {
       this.editing = {
-        id: -1,
         distance: null,
         name: null,
         velocity: null
       };
+
     } else {
       this.editing = Object.assign({}, this.training);
     }
   }
 
-  async showSuccessAlert() {
-    const alert = await this.alertController.create({
+  showSuccessAlert() {
+    this.alertController.create({
       message: `Treino ${this.mode === 'new' ? 'cadastrado' : 'alterado'} com sucesso!`,
       backdropDismiss: false,
       keyboardClose: true,
@@ -51,12 +50,11 @@ export class TrainingEditComponent implements OnInit {
           this.modalController.dismiss();
         }
       }]
-    });
-    await alert.present();
+    }).then(alert => alert.present());
   }
 
-  async showErrorAlert(error: string) {
-    const alert = await this.alertController.create({
+  showErrorAlert(error: string) {
+    this.alertController.create({
       header: 'Erro',
       message: `Erro ao ${this.mode === 'new' ? 'cadastrar' : 'alterar'} treino:<br>${error}`,
       keyboardClose: true,
@@ -66,25 +64,22 @@ export class TrainingEditComponent implements OnInit {
           this.alertController.dismiss();
         }
       }]
-    });
-    await alert.present();
+    }).then(alert => alert.present());
   }
 
   create() {
     this.submitAttempt = true;
     if (this.formControl.status === 'VALID') {
-      this.trainingService.add(this.editing);
+      this.trainingService.addTraining(this.editing);
       return this.showSuccessAlert();
     }
-    this.showErrorAlert('Erro de teste');
   }
 
   edit() {
     this.submitAttempt = true;
-    if (this.formControl.status === 'VALID'){
-      this.trainingService.set(this.editing);
+    if (this.formControl.status === 'VALID') {
+      this.trainingService.updateTraining(this.editing);
       return this.showSuccessAlert();
     }
-    this.showErrorAlert('Erro de teste');
   }
 }

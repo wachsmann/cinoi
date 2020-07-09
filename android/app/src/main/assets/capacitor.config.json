@@ -12,9 +12,7 @@
             "providers": [],
             "languageCode": "pt-br",
             "nativeAuth": false,
-            "permissions": {
-
-            }
+            "permissions": {}
         }
     },
     "cordova": {}

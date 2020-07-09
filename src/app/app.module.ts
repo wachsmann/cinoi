@@ -13,7 +13,8 @@ import { ReactiveFormsModule  } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
-// import { GoogleMaps } from '@ionic-native/google-maps';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
   providers: [
     StatusBar,
     SplashScreen,
-    // GoogleMaps,
+    BackgroundGeolocation,
+    TextToSpeech,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: SETTINGS, useValue: {} }
   ],

@@ -1,6 +1,5 @@
-import { TrainingsService } from './../trainings.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import Training from '../training.model';
+import { TrainingService, Training } from 'src/app/service/training.service';
 
 @Component({
   selector: 'app-training-list',
@@ -8,18 +7,19 @@ import Training from '../training.model';
   styleUrls: ['./training-list.component.scss'],
 })
 export class TrainingListComponent implements OnInit {
-  trainings: Array<Training> = [];
+  protected trainings: Training[];
+
   @Output() OnInitUpdate: EventEmitter<void> = new EventEmitter();
   @Output() OnFinishUpdate: EventEmitter<void> = new EventEmitter();
   @Output() OnTrainingClick: EventEmitter<Training> = new EventEmitter();
-  constructor(private trainingsService: TrainingsService) { }
+  constructor(private trainingsService: TrainingService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   update(): void {
     this.OnInitUpdate.emit();
-    setTimeout(() => {
-      this.trainings = this.trainingsService.get();
+    this.trainingsService.getTrainings().subscribe(trainings => {
+      this.trainings = trainings;
       this.OnFinishUpdate.emit();
-    }, 1000);
+    });
   }
 }

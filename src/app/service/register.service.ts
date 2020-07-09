@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 
 export interface User {
-  email: string,
-  height: string,
-  name: string,
-  password: string,
-  weight: number
+  id?: string;
+  email: string;
+  height: number;
+  name: string;
+  password: string;
+  weight: number;
 }
 
 @Injectable({
